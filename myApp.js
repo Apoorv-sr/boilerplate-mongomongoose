@@ -6,8 +6,15 @@ mongoose.connect(mySecret, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // console.log(mySecret);
 
+let personSchema=new mongoose.Schema(
+  {
+    name:{type:String,required:true},
+    age:Number,
+    favoriteFoods:[String]
+  });
 
-let Person;
+let Person=new mongoose.model("Person",personSchema);
+
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
