@@ -207,11 +207,29 @@ const removeManyPeople=function(done)
 //   done(null /*, data*/);
 // };
 
-const queryChain = (done) => {
-  const foodToSearch = "burrito";
+const queryChain=function(done)
+  {
+    const foodToSearch = "burrito";
+    Person.find({favoriteFoods:foodToSearch}).sort({name:1}).limit(2).select({name:1,favoriteFoods:1}).exec(function(err,result)
+                                                                                                            {
+                                                                                                              if(err)
+                                                                                                                {
+                                                                                                                  console.return(err);
+                                                                                                                }
+                                                                                                              else
+                                                                                                                {
+                                                                                                                 console.log(result);
+                                                                                                                  done(null,result);
+                                                                                                                }
+                                                                                                            });
+    
+  };
 
-  done(null /*, data*/);
-};
+// const queryChain = (done) => {
+//   const foodToSearch = "burrito";
+
+//   done(null /*, data*/);
+// };
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
