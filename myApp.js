@@ -51,13 +51,30 @@ const findPeopleByName=function(personName,done)
                 });
   }
 
+
 // const findPeopleByName = (personName, done) => {
 //   done(null /*, data*/);
 // };
 
-const findOneByFood = (food, done) => {
-  done(null /*, data*/);
-};
+const findOneByFood=function(food,done)
+  {
+    Person.findOne({favoriteFoods:food},function(err,found)
+                   {
+                     if(err)
+                     {
+                       console.return(err);
+                     }
+                     else
+                     {
+                       done(null,found);
+                     }
+                   });
+  };
+
+
+// const findOneByFood = (food, done) => {
+//   done(null /*, data*/);
+// };
 
 const findPersonById = (personId, done) => {
   done(null /*, data*/);
