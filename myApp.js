@@ -76,9 +76,24 @@ const findOneByFood=function(food,done)
 //   done(null /*, data*/);
 // };
 
-const findPersonById = (personId, done) => {
-  done(null /*, data*/);
-};
+const findPersonById=function(personId,done)
+  {
+    Person.findById({_id:personId},function(err,found)
+                    {
+                      if(err)
+                      {
+                        console.return(err);
+                      }
+                      else
+                      {
+                        done(null,found);
+                      }
+                    });
+  };
+
+// const findPersonById = (personId, done) => {
+//   done(null /*, data*/);
+// };
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
