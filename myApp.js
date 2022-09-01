@@ -131,11 +131,38 @@ const findEditThenSave=function(personId,done)
 //   done(null /*, data*/);
 // };
 
-const findAndUpdate = (personName, done) => {
-  const ageToSet = 20;
+const findAndUpdate=function(personName,done)
+  {
+    const ageToSet = 20;
+    Person.findOne({name:personName},function(err,found)
+                   {
+                     if(err)
+                     {
+                       console.return(err);
+                     }
+                     else
+                     {
+                       found.age=ageToSet;
+                       found.save(function(err,success)
+                                  {
+                                    if(err)
+                                    {
+                                      console.return(err);
+                                    }
+                                    else
+                                    {
+                                      done(null,success);
+                                    }
+                                  });
+                     }
+                   });
+  }
 
-  done(null /*, data*/);
-};
+// const findAndUpdate = (personName, done) => {
+//   const ageToSet = 20;
+
+//   done(null /*, data*/);
+// };
 
 const removeById = (personId, done) => {
   done(null /*, data*/);
