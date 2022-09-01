@@ -184,11 +184,28 @@ const removeById=function(personId,done)
 //   done(null /*, data*/);
 // };
 
-const removeManyPeople = (done) => {
-  const nameToRemove = "Mary";
 
-  done(null /*, data*/);
-};
+const removeManyPeople=function(done)
+  {
+    const nameToRemove = "Mary";
+    Person.remove({name:nameToRemove},function(err,removedPeople)
+                  {
+                    if(err)
+                    {
+                      console.return(err);
+                    }
+                    else
+                    {
+                      done(null,removedPeople)
+                    }
+                  });
+  };
+
+// const removeManyPeople = (done) => {
+//   const nameToRemove = "Mary";
+
+//   done(null /*, data*/);
+// };
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
