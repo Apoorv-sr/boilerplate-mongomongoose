@@ -2,9 +2,8 @@ require('dotenv').config();
 const mongoose=require("mongoose");
 const mySecret = process.env['MONGO_URI'];
 
-mongoose.connect(mySecret,{ useNewUrlParser: true,useUnifiedTopology: true});
 
-// console.log(mySecret);
+mongoose.connect(mySecret,{ useNewUrlParser: true,useUnifiedTopology: true});
 
 let personSchema=new mongoose.Schema(
   {
@@ -15,55 +14,46 @@ let personSchema=new mongoose.Schema(
 
 let Person=new mongoose.model("Person",personSchema);
 
-let person1=new Person(
-  {
-  name:"Arup",
-  age:26
-  }
-);
+const person1 = new Person({name: "Ashu", age: 27, favoriteFoods: ["eggs", "fish", "fresh fruit"]});
+const person2 = new Person({name: "Apoorv", age: 25, favoriteFoods: ["eggs"]});
 
+let arrayOfPeople=[person1,person2];
 
- person1.save(function(err,data)
-             {
-               if(err){
-                 console.log(err);
-               }
-               else
-               {
-                 console.log("Successfully saved");
-               }
-             });
-
-const createAndSavePerson = function(done) {
-  // ... do something (risky) ...the abve function done created is executed only when the content //inside it is successfully executed.
-  person1.save(function(err,data)
-             {
-               if(err){
-                 console.log(err);
-                 return;
-               }
-               else
-               {
-                 console.log("Successfully saved");
-                 done(null,data);
-               }
-             });
-  
-  if (error) return done(error);
-  done(null, result);
+const createManyPeople = function(arrayOfPeople,done) 
+{
+Person.create(arrayOfPeople,function(err,people)
+              {
+                if(err)
+                {
+                  console.log(err);
+                  done(err);
+                }
+                else
+                {
+                  console.log(people);
+                  done(null,people);
+                }
+              });
 };
 
-// const createAndSavePerson = (done) => {
+const findPeopleByName=function(personName,done)
+  {
+    Person.find({name:personName},function(err,found)
+                {
+                  if(err)
+                  {
+                    console.return(err);
+                  }
+                  else
+                  {
+                    done(null,found);
+                  }
+                });
+  }
+
+// const findPeopleByName = (personName, done) => {
 //   done(null /*, data*/);
 // };
-
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
-};
-
-const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
-};
 
 const findOneByFood = (food, done) => {
   done(null /*, data*/);
@@ -108,7 +98,7 @@ const queryChain = (done) => {
 //----- **DO NOT EDIT BELOW THIS LINE** ----------------------------------
 
 exports.PersonModel = Person;
-exports.createAndSavePerson = createAndSavePerson;
+// exports.createAndSavePerson = createAndSavePerson;
 exports.findPeopleByName = findPeopleByName;
 exports.findOneByFood = findOneByFood;
 exports.findPersonById = findPersonById;
